@@ -7,7 +7,7 @@ import com.amazon.pages.HomePage;
 import com.amazon.pages.LoginPage;
 import com.amazon.pages.ProductPage;
 import com.amazon.pages.SearchResultPage;
-
+import com.amazon.helper.Helper;
 import com.amazon.pages.AddToCartPage;
 import com.amazon.pages.DeliveryAddressPage;
 
@@ -26,8 +26,11 @@ public class homePage_stepDefs {
 	DeliveryAddressPage delAddPage;
 	LoginPage loginPage;
 	
+	Helper helper;
+	
 	WebDriver driver;
 	String productName;
+	String parentWinHandle;
 	
 	@Before
 	public void setUp() {
@@ -39,10 +42,10 @@ public class homePage_stepDefs {
 	
 	@After
 	public void closeBrowser() {
-		/*driver.close();
+		driver.close();
         driver.switchTo().window(parentWinHandle);
         driver.close();
-		System.out.println("Final Verification is successful");*/
+		System.out.println("Final Verification is successful");
 	}
 	
 	@Given("^the user is in amazon page$")
@@ -67,6 +70,9 @@ public class homePage_stepDefs {
 	@Then("^the user should be able to go to Products page$")
 	public void the_user_should_be_able_to_go_to_Products_page() throws Throwable {
 		productPage = new ProductPage(driver);
+		parentWinHandle = driver.getWindowHandle();		
+		helper = new Helper(driver);
+		helper.switchToChildWindow(parentWinHandle);
 		productPage.clickAddToCart();
 	}
 	
