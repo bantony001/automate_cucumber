@@ -7,9 +7,7 @@ import com.amazon.pages.HomePage;
 import com.amazon.pages.LoginPage;
 import com.amazon.pages.ProductPage;
 import com.amazon.pages.SearchResultPage;
-import com.amazon.dataProviders.ConfigFileReader;
 import com.amazon.helper.Helper;
-import com.amazon.manager.PageObjectManager;
 import com.amazon.pages.AddToCartPage;
 import com.amazon.pages.DeliveryAddressPage;
 
@@ -19,7 +17,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class homePage_stepDefs {
+public class searchResult_stepDefs {
 	
 	HomePage homePage;
 	SearchResultPage searchPage;
@@ -27,23 +25,19 @@ public class homePage_stepDefs {
 	AddToCartPage atcPage;
 	DeliveryAddressPage delAddPage;
 	LoginPage loginPage;
-	PageObjectManager pageObjectManager;
-	ConfigFileReader configFileReader;
 	
 	Helper helper;
 	
 	WebDriver driver;
 	String productName;
 	String parentWinHandle;
-	
+	/*
 	@Before
 	public void setUp() {
-		configFileReader = new ConfigFileReader();
-		System.setProperty("webdriver.chrome.driver", configFileReader.getDriverPath());
+		System.setProperty("webdriver.chrome.driver", "D:\\Softwares\\eclipse-workspace\\lib\\chromedriver.exe");
 		driver = new ChromeDriver();
-		driver.get(configFileReader.getApplicationUrl());
+		driver.get("https://www.amazon.in/");
 		driver.manage().window().maximize();		
-		pageObjectManager = new PageObjectManager(driver);
 	}
 	
 	@After
@@ -56,7 +50,7 @@ public class homePage_stepDefs {
 	
 	@Given("^the user is in amazon page$")
 	public void the_user_is_in_amazon_page() throws Throwable {
-		homePage = pageObjectManager.getHomePage();
+		homePage = new HomePage(driver);
 		homePage.verifyHomePage();		
 	}
 
@@ -67,15 +61,16 @@ public class homePage_stepDefs {
 		homePage.searchProduct(productName);
 	}
 
+	
 	@Then("^the user should be able to navigate to the results page$")
 	public void the_user_should_be_able_to_navigate_to_the_results_page() throws Throwable {
-		searchPage= pageObjectManager.getSearchResultPage();
+		searchPage=new SearchResultPage(driver);
 		searchPage.clickResult(productName);
 	}
 	
 	@Then("^the user should be able to go to Products page$")
 	public void the_user_should_be_able_to_go_to_Products_page() throws Throwable {
-		productPage = pageObjectManager.getProductPage();
+		productPage = new ProductPage(driver);
 		parentWinHandle = driver.getWindowHandle();		
 		helper = new Helper(driver);
 		helper.switchToChildWindow(parentWinHandle);
@@ -84,13 +79,13 @@ public class homePage_stepDefs {
 	
 	@Then("^the user should be able to go to AddToCart Page$")
 	public void the_user_should_be_able_to_go_to_AddToCart_Page() throws Throwable {
-		atcPage = pageObjectManager.getAddToCartPage();
+		atcPage = new AddToCartPage(driver);
 		atcPage.clickProceed();
 	}
 
 	@Then("^the user should be able to go to Login page$")
 	public void the_user_should_be_able_to_go_to_Login_page() throws Throwable {
-		loginPage = pageObjectManager.getLoginPage();
+		loginPage = new LoginPage(driver);
 		String userName = "himabejo1@gmail.com";
 		String password = "Amazon#143";
 		loginPage.enterUserCredentials(userName, password);
@@ -98,11 +93,11 @@ public class homePage_stepDefs {
 
 	@Then("^the user should be able to go to Delivery Address page after entering the username and password$")
 	public void the_user_should_be_able_to_go_to_Delivery_Address_page_after_entering_the_username_and_password() throws Throwable {
-		delAddPage = pageObjectManager.getDeliveryAddressPage();
+		delAddPage = new DeliveryAddressPage(driver);
 		delAddPage.verifyDeliveryPage("Hima");
 	}
 	
 	@Then("^the user should be able to close the browser$")
 	public void the_user_should_be_able_to_close_the_browser() throws Throwable {
-	}
+	}*/
 }	
