@@ -9,7 +9,9 @@ import com.amazon.pages.ProductPage;
 import com.amazon.pages.SearchResultPage;
 import com.amazon.dataProviders.ConfigFileReader;
 import com.amazon.helper.Helper;
+import com.amazon.manager.FileReaderManager;
 import com.amazon.manager.PageObjectManager;
+import com.amazon.manager.WebDriverManager;
 import com.amazon.pages.AddToCartPage;
 import com.amazon.pages.DeliveryAddressPage;
 
@@ -36,12 +38,13 @@ public class homePage_stepDefs {
 	String productName;
 	String parentWinHandle;
 	
+	WebDriverManager webDriverManager;
+	
 	@Before
 	public void setUp() {
-		configFileReader = new ConfigFileReader();
-		System.setProperty("webdriver.chrome.driver", configFileReader.getDriverPath());
-		driver = new ChromeDriver();
-		driver.get(configFileReader.getApplicationUrl());
+		webDriverManager = new WebDriverManager();
+		driver = webDriverManager.getDriver();
+		driver.get(FileReaderManager.getInstance().getConfigReader().getApplicationUrl());
 		driver.manage().window().maximize();		
 		pageObjectManager = new PageObjectManager(driver);
 	}

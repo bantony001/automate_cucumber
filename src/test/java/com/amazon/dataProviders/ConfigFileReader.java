@@ -6,13 +6,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
+import com.amazon.enums.DriverType;
+
 public class ConfigFileReader {
 	
 	 private Properties properties;
 	 private final String propertyFilePath= "configs//Configuration.properties";
 	 	 
 		public ConfigFileReader() {
-			System.out.println("Hi");
 			BufferedReader reader;
 			try {
 				reader = new BufferedReader(new FileReader(propertyFilePath));
@@ -27,7 +28,6 @@ public class ConfigFileReader {
 				e.printStackTrace();
 				throw new RuntimeException("Configuration properties not found at " + propertyFilePath);
 			}
-			System.out.println("Hello");
 		}
 	 
 	 public String getDriverPath(){
@@ -38,8 +38,20 @@ public class ConfigFileReader {
 	
 	public String getApplicationUrl() {
 		String url = properties.getProperty("url");
-		if(url != null) return url;
-		else throw new RuntimeException("driverPath not specified in Configuration.properties file");
+		if(url != null) {
+			return url;
+		}
+		else {
+			throw new RuntimeException("driverPath not specified in Configuration.properties file");
+		}
+
+	}
+	
+	public DriverType getBrowser() {
+		String browserName = properties.getProperty("browser");
+		if(browserName == null || browserName.equals("chrome")) return DriverType.CHROME;
+		else if(browserName.equals("firefox")) return DriverType.FIREFOX;
+		else throw new RuntimeException("Browser Name Key value in configuration.properties is not matched : " + browserName);
 	}
 
 }
