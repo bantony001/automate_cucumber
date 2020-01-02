@@ -14,7 +14,7 @@ public class HomePage {
 	
 	public void verifyHomePage() throws InterruptedException {
 		System.out.println("Initial Verification is successful");
-		driver.findElement(By.xpath("//span[contains(text(), 'Deliver to')]")).isDisplayed();
+		driver.findElement(By.xpath("//span[contains(text(), 'Hello. Sign in')]")).isDisplayed();
 	}
 	
 	public void searchProduct(String productName) throws InterruptedException {
